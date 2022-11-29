@@ -118,6 +118,7 @@ function loseMyGame(mistakes) {
         liNode[arrPosition].style.display = 'block';
     }
 
+    
     if (mistakes == 6) {
         // Сообщение о проирыше
         let maskLoseNode = document.querySelector('.content__mask-lose');
