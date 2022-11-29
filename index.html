@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class="page" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="page__body">
+    <section class="content">
+        <div class="content__result">
+            <ul class="content__result-list">
+                <!-- 1 -->
+                <li class="content__result-item">
+                    <p class="content__result-item-text">
+                        Выиграл :
+                    </p>
+
+                    <p class="content__result--strick content__result--win">0</p>
+                </li>
+
+                <!-- 2 -->
+                <li class="content__result-item">
+                    <p class="content__result-item-text">
+                        Проиграл :
+                    </p>
+
+                    <p class="content__result--strick content__result--lose">0</p>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="content__letter">
+        </div>
+
+        <div class="content__base">
+            <div class="content__base-gallows">
+                <div class="content__base-el content__base-head"></div>
+                <div class="content__base-el content__base-body"></div>
+                <div class="content__base-el content__base-hand content__base-hand--left"></div>
+                <div class="content__base-el content__base-hand content__base-hand--right"></div>
+                <div class="content__base-el content__base-foot content__base-foot--left"></div>
+                <div class="content__base-el content__base-foot content__base-foot--right"></div>
+            </div>
+        </div>
+
+        <ul class="content__output-content">
+
+        </ul>
+    </section>
+
+    <!-- Старт -->
+    <div class="content__mask content__mask--close">
+        <button class="content__mask-button">Да начнется игра</button>
+    </div>
+
+    <!-- Проиграл -->
+    <div class="content__mask-lose content__mask-lose--close">
+        <h2 class="content__mask-lose__title">Ты проиграл!</h2>
+
+        <button class="content__mask-lose-button">Попробовать еще раз</button>
+    </div>
+
+     <!-- Выиграл -->
+     <div class="content__mask-win content__mask-win--close">
+        <h2 class="content__mask-lose__title">Поздравляю, ты выиграл!</h2>
+
+        <button class="content__mask-win-button">Хочешь повторить?</button>
+    </div>
+
+    <!-- Предупреждение -->
+    <div class="content__error-language">
+        <p class="content__error-language-text">
+            Вводите на русском
+        </p>
+    </div>
+
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
