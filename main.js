@@ -117,7 +117,6 @@ function loseMyGame(mistakes) {
     if (liNode[arrPosition]) {
         liNode[arrPosition].style.display = 'block';
     }
-
     
     if (mistakes == 6) {
         // Сообщение о проирыше
@@ -159,7 +158,6 @@ function checkInputValue(word, letter) {
         // Правильные буквы
         isLetter.push(letter);
         console.log(isLetter);
-
 
         // Массив неповторяющихся правильных букв
         let uniqueLetter = new Set(isLetter);
@@ -226,6 +224,7 @@ function getDownInput() {
 
 ////// –––––––––––––––––––––––––––––––––––––––––––– //////
 
+
 // Функция начала игры
 function startGame() {
     let blockMask = document.querySelector('.content__mask');
@@ -257,6 +256,11 @@ function cleanAllData() {
     isLetter = [];
     isUniqueLetter = [];
     numberMistakes = 0;
+
+    // Очищает вывод букв на страницу
+    let outputIputLetter = document.querySelector('.content__letter');
+    outputIputLetter.textContent = '';
+
 }
 
 
@@ -287,12 +291,12 @@ tryAgainButtonWin.addEventListener('click', () => {
 });
 
 // Повтор после проигрыша
-// tryAgainButtonLose.addEventListener('click', () => {
-//     maskNodeLose.classList.add('content__mask-lose--close');
-//     cleanAllData();
+tryAgainButtonLose.addEventListener('click', () => {
+    maskNodeLose.classList.add('content__mask-lose--close');
+    cleanAllData();
 
-//     hideMan();
-//     cleanTemplateOfWord();
-//     createTemplate(myWord);
-//     getDownInput();
-// });
+    hideMan();
+    cleanTemplateOfWord();
+    createTemplate(myWord);
+    getDownInput();
+});
