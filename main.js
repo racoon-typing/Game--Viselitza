@@ -24,7 +24,7 @@ let getRandomWord = function (arr) {
 }
 
 // Загаданное слово
-let myWord = getRandomWord(word);
+// let myWord = getRandomWord(word);
 
 // Скрывает человека
 function hideMan() {
@@ -38,22 +38,6 @@ function hideMan() {
 // Выводит слово
 let contentOutputWrapper = document.querySelector('.content__output-content');
 
-// Функция заполнения шаблона букв
-function createTemplate(word) {
-    for (let i = 0; i < word.length; i++) {
-        // Элемент
-        let liNode = document.createElement("li");
-        liNode.classList.add('content__output-item');
-
-        // Буква
-        let spanNode = document.createElement("span")
-        spanNode.textContent = word[i];
-        spanNode.classList.add('content__output-item--span');
-        liNode.append(spanNode);
-
-        contentOutputWrapper.append(liNode);
-    }
-}
 
 ////// –––––––––––––––––––––––––––––––––––––––––––– //////
 let pageBody = document.querySelector('.page__body');
@@ -92,6 +76,7 @@ function findEqualObjects(someArray, otherArray) {
 
     let wordLength = someArray.length;
     let equalObjectsLength = equalObjects.length;
+    console.log(someArray);
 
     // Победа !!!
     if (wordLength == equalObjectsLength) {
@@ -103,7 +88,7 @@ function findEqualObjects(someArray, otherArray) {
         maskWinNode.classList.remove('content__mask-win--close');
 
         // Удаляет обработчик
-        document.removeEventListener('keydown', keydownEvent);
+        document.removeEventListener('keydown', keydownEvent( someArray ));
     }
 }
 
@@ -140,7 +125,7 @@ function loseMyGame(mistakes) {
         loseItemNode.textContent = loseGame;
 
         // Удаляет обработчик
-        document.removeEventListener('keydown', keydownEvent);
+        document.removeEventListener('keydown', keydownEvent( myWord ));
     }
 }
 
@@ -202,12 +187,12 @@ let arrOfUniqueLetter = [];
 
 let errorLanguage = document.querySelector('.content__error-language');
 
-function keydownEvent(e) {
+const keydownEvent = (myWord) => (e) => {
     // Ввод только русских букв
     let regexp = /[а-яё]/i;
-    
+
     if (regexp.test(e.key)) {
-        
+
         // Нажатие на клавиши в верхнем регистре
         let toUpperCaseLetter = e.key.toUpperCase();
 
@@ -218,7 +203,7 @@ function keydownEvent(e) {
         let uniqueLetter = new Set(arrOfAnyLetter);
         arrOfUniqueLetter = Array.from(uniqueLetter);
 
-        // Принимает массив уникальных букв и загаданное слово
+        // Принимает загаданное слово и массивуникальных букв
         checkInputValue(myWord, toUpperCaseLetter);
 
         // Скрывает ошибку
@@ -229,9 +214,26 @@ function keydownEvent(e) {
     }
 }
 
-function getDownInput() {
+function getDownInput(myWord) {
     // Функция отслеживания нажатия клавиши
-    document.addEventListener('keydown', keydownEvent);
+    document.addEventListener('keydown', keydownEvent( myWord ));
+}
+
+// Функция заполнения шаблона букв
+function createTemplate(word) {
+    for (let i = 0; i < word.length; i++) {
+        // Элемент
+        let liNode = document.createElement("li");
+        liNode.classList.add('content__output-item');
+
+        // Буква
+        let spanNode = document.createElement("span")
+        spanNode.textContent = word[i];
+        spanNode.classList.add('content__output-item--span');
+        liNode.append(spanNode);
+
+        contentOutputWrapper.append(liNode);
+    }
 }
 
 
@@ -246,9 +248,12 @@ function startGame() {
     buttonMask.addEventListener('click', () => {
         blockMask.style.display = 'none';
 
+        // Загаданное слово
+        let myWord = getRandomWord(word);
+
         hideMan();
         createTemplate(myWord);
-        getDownInput();
+        getDownInput(myWord);
     });
 }
 
@@ -273,7 +278,6 @@ function cleanAllData() {
     // Очищает вывод букв на страницу
     let outputIputLetter = document.querySelector('.content__letter');
     outputIputLetter.textContent = '';
-
 }
 
 
@@ -297,10 +301,13 @@ tryAgainButtonWin.addEventListener('click', () => {
     maskNodeWin.classList.add('content__mask-win--close');
     cleanAllData();
 
+    // Загаданное слово
+    let myWord = getRandomWord(word);
+
     hideMan();
     cleanTemplateOfWord();
     createTemplate(myWord);
-    getDownInput();
+    getDownInput(myWord);
 });
 
 // Повтор после проигрыша
@@ -308,8 +315,12 @@ tryAgainButtonLose.addEventListener('click', () => {
     maskNodeLose.classList.add('content__mask-lose--close');
     cleanAllData();
 
+    // Загаданное слово
+    let myWord = getRandomWord(word);
+
+
     hideMan();
     cleanTemplateOfWord();
     createTemplate(myWord);
-    getDownInput();
+    getDownInput(myWord);
 });
