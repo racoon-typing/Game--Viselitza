@@ -8,18 +8,11 @@
 
 // Загадать слово
 const word = [
-    'Медведь', 
-    'Тигр', 
-    'Телефон', 
-    'Инопланетянин', 
-    'Максималист', 
-    'Красота', 
-    'Королева', 
-    'Престол', 
-    'Машина', 
-    'Стипендия', 
-    'Империя', 
-    'Полководец'
+    'Медведь',
+    'Тигр',
+    'Красота',
+    'Королева',
+    'Машина',
 ];
 
 let getRandomWord = function (arr) {
@@ -88,20 +81,22 @@ function findEqualObjects(someArray, otherArray) {
     if (wordLength == equalObjectsLength) {
         winGame++;
         resultWinNode.textContent = winGame;
-        
+
         // Сообщение о выигрыше
         let maskWinNode = document.querySelector('.content__mask-win');
         maskWinNode.classList.remove('content__mask-win--close');
 
+        pageBody.classList.add('try-again')
+
         // Удаляет обработчик
-        document.removeEventListener('keydown', keydownEvent( someArray ));
+        window.removeEventListener('keydown', keydownEvent);
     }
 }
 
 // Выигрыш
-function winMyGame(word, arrOfUniqueLetter) {
-    findEqualObjects(word, arrOfUniqueLetter);
-}
+// function winMyGame(word, arrOfUniqueLetter) {
+//     findEqualObjects(word, arrOfUniqueLetter);
+// }
 
 
 ////// –––––––––––––––––––––––––––––––––––––––––––– //////
@@ -121,7 +116,7 @@ function loseMyGame(mistakes) {
     if (liNode[arrPosition]) {
         liNode[arrPosition].style.display = 'block';
     }
-    
+
     if (mistakes == 6) {
         // Сообщение о проирыше
         let maskLoseNode = document.querySelector('.content__mask-lose');
@@ -131,7 +126,7 @@ function loseMyGame(mistakes) {
         loseItemNode.textContent = loseGame;
 
         // Удаляет обработчик
-        document.removeEventListener('keydown', keydownEvent( myWord ));
+        window.removeEventListener('keydown', keydownEvent);
     }
 }
 
@@ -168,10 +163,12 @@ function checkInputValue(word, letter) {
         isUniqueLetter = Array.from(uniqueLetter);
 
         // Выйгрыш
-        winMyGame(arrOfMyWord, isUniqueLetter);
+        // winMyGame(arrOfMyWord, isUniqueLetter);
+        findEqualObjects(arrOfMyWord, isUniqueLetter);
+
     } else {
         noLetter.push(letter);
-        // Массив неповторяющихся правильных букв
+        // Массив неповторяющихся неправильных букв
         let uniqueLetter = new Set(noLetter);
         noUniqueLetter = Array.from(uniqueLetter);
 
@@ -193,37 +190,51 @@ let arrOfUniqueLetter = [];
 
 let errorLanguage = document.querySelector('.content__error-language');
 
-const keydownEvent = (myWord) => (e) => {
-    // Ввод только русских букв
-    let regexp = /[а-яё]/i;
 
-    if (regexp.test(e.key)) {
+// Слушатель с параметром
+function getEventListener(myWord) {
+    var keydownEvent = function (e) {
+        // Ввод только русских букв
+        let regexp = /[а-яё]/i;
 
-        // Нажатие на клавиши в верхнем регистре
-        let toUpperCaseLetter = e.key.toUpperCase();
+        if (regexp.test(e.key)) {
+            // Нажатие на клавиши в верхнем регистре
+            let toUpperCaseLetter = e.key.toUpperCase();
 
-        // Всталяет нажатые буквы в масиив
-        arrOfAnyLetter.push(toUpperCaseLetter);
+            // Всталяет нажатые буквы в масиив
+            arrOfAnyLetter.push(toUpperCaseLetter);
 
-        // Создаём массив с уникальными буквами
-        let uniqueLetter = new Set(arrOfAnyLetter);
-        arrOfUniqueLetter = Array.from(uniqueLetter);
+            // Создаём массив с уникальными буквами
+            let uniqueLetter = new Set(arrOfAnyLetter);
+            arrOfUniqueLetter = Array.from(uniqueLetter);
+            // console.log(arrOfUniqueLetter);
 
-        // Принимает загаданное слово и массивуникальных букв
-        checkInputValue(myWord, toUpperCaseLetter);
+            // Принимает загаданное слово и массив уникальных букв        
+            checkInputValue(myWord, toUpperCaseLetter);
 
-        // Скрывает ошибку
-        errorLanguage.style.display = 'none';
-    } else {
-        // Показывает ошибку
-        errorLanguage.style.display = 'flex';
-    }
-}
+            // Удаляет обработчик
+            if (pageBody.classList.contains('try-again')) {
+                window.removeEventListener('keydown', keydownEvent);
+            }
 
+            // Скрывает ошибку
+            errorLanguage.style.display = 'none';
+        } else {
+            // Показывает ошибку
+            errorLanguage.style.display = 'flex';
+        }
+    };
+
+    window.addEventListener('keydown', keydownEvent);
+};
+
+
+// Функция отслеживания нажатия клавиши
 function getDownInput(myWord) {
-    // Функция отслеживания нажатия клавиши
-    document.addEventListener('keydown', keydownEvent( myWord ));
+    // Слушатель на клавиши 
+    getEventListener(myWord);
 }
+
 
 // Функция заполнения шаблона букв
 function createTemplate(word) {
@@ -242,8 +253,6 @@ function createTemplate(word) {
     }
 }
 
-
-////// –––––––––––––––––––––––––––––––––––––––––––– //////
 
 
 // Функция начала игры
@@ -292,7 +301,7 @@ function cleanTemplateOfWord() {
     let liNodeLetter = document.querySelectorAll('.content__output-item');
 
     for (let i = 0; i < liNodeLetter.length; i++) {
-        liNodeLetter[i].remove();      
+        liNodeLetter[i].remove();
     }
 }
 
@@ -329,4 +338,4 @@ tryAgainButtonLose.addEventListener('click', () => {
     cleanTemplateOfWord();
     createTemplate(myWord);
     getDownInput(myWord);
-});
+})
