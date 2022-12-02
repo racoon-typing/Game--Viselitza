@@ -124,9 +124,9 @@ function getEventListener(myWord) {
 
 // Загадать слово
 const word = [
-    'Медведь',
-    'Тигр',
-    'Красота',
+    ['Большой, сильный и бурый. Кто это?', 'Медведь'],
+    ['Большой, сильный и быстрый. Очень клыкастый?', 'Тигр'],
+    ['Как пела Полина Гагарина. Без чего не выжить человечеству?', 'Красота'],
 ];
 
 // Функция получения слова
@@ -134,7 +134,7 @@ let getRandomWord = function (arr) {
     let arrLength = arr.length;
     let randomNumber = Math.floor(Math.random(0, 1) * arrLength);
 
-    return arr[randomNumber];
+    return arr[randomNumber][2];
 }
 
 // Скрывает человека
