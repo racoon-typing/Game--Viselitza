@@ -198,7 +198,6 @@ function getRandomArr(arr) {
     return arr[randomNumber];
 }
 
-
 // Скрывает человека
 function hideMan() {
     let liNode = document.querySelectorAll('.content__base-el')
@@ -207,6 +206,36 @@ function hideMan() {
         liNode[i].style.display = 'none';
     }
 }
+
+// Функция заполнения шаблона букв
+function createTemplate(word) {
+    let contentOutputWrapper = document.querySelector('.content__output-content');
+
+    // Очищает предыдущий шаблон
+    if (document.querySelector('.content__output-item')) {
+        let liNodes = document.querySelectorAll('.content__output-item')
+
+        for (let i = 0; i < liNodes.length; i++) {
+            liNodes[i].remove();
+        }
+    }
+
+    // Создает новый шаблон
+    for (let i = 0; i < word.length; i++) {
+        // Элемент
+        let liNode = document.createElement("li");
+        liNode.classList.add('content__output-item');
+
+        // Буква
+        // let spanNode = document.createElement("span")
+        // spanNode.textContent = word[i];
+        // spanNode.classList.add('content__output-item--span');
+        // liNode.append(spanNode);
+
+        contentOutputWrapper.append(liNode);
+    }
+}
+
 
 
 ////// –––––––––––––––––––––––––––––––––– //////
@@ -220,11 +249,15 @@ function startGame() {
 
     // Поучаю вопрос для загадки из своего массива
     let myQuestion = myRandomArr[0];
+
     console.log(myQuestion);
     console.log(myWord);
 
     // Прячет человека
     hideMan();
+
+    // Создает шаблон слова
+    createTemplate(myWord);
 
     // Вывод вопрос
     giveOutputQuestion(myQuestion);
