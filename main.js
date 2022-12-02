@@ -4,6 +4,13 @@ let pageBody = document.querySelector('.page__body');
 
 
 
+function openWord() {
+    let liNodes = document.querySelectorAll('.content__output-item')
+
+}
+
+
+
 // Кол-во проигрышей
 let winGame = 0;
 
@@ -40,6 +47,7 @@ function winMyGame(ArrOfСorrectLetter, arrOfMyWord) {
         });
     });
 
+    // Проверка совпадения длины массива правильных букв и загаданного слова
     if (equalLetter == arrOfMyWord.length) {
         // Добавляет класс на Body
         pageBody.classList.add('try-again');
