@@ -1,15 +1,14 @@
-
 // Ноды глобально
 let pageBody = document.querySelector('.page__body');
 
 
+// Показывает отгаданную букву
+function openWord(numOfEqualLetter, arrOfMyWord) {
+    let spanNodes = document.querySelectorAll('.content__output-item--span')
 
-function openWord() {
-    let liNodes = document.querySelectorAll('.content__output-item')
-
+    // Вставляет в Span отгаданную буквы
+    spanNodes[numOfEqualLetter].textContent = arrOfMyWord[numOfEqualLetter];
 }
-
-
 
 // Кол-во проигрышей
 let winGame = 0;
@@ -36,19 +35,21 @@ function winMyGame(ArrOfСorrectLetter, arrOfMyWord) {
                 // Индекс совпавшей буквы
                 numOfEqualLetter = index;
 
+                // Прибавляет кол-во совпавших букв
                 equalLetter++;
-                console.log(equalLetter);
-                // console.log(numOfEqualLetter);
 
-
-
-
+                // Функция показывающая отгаданную букву
+                openWord(numOfEqualLetter, arrOfMyWord);
             }
         });
     });
 
     // Проверка совпадения длины массива правильных букв и загаданного слова
     if (equalLetter == arrOfMyWord.length) {
+        // Сообщение о выигрыше
+        let maskWinNode = document.querySelector('.content__mask-win');
+        maskWinNode.classList.remove('content__mask-win--close');
+
         // Добавляет класс на Body
         pageBody.classList.add('try-again');
         console.log('Добавился класс на Page');
@@ -111,13 +112,9 @@ let ArrOfСorrectLetter = [];
 
 // Сравнивает введенную букву и загаданное слово
 function compareArrays(pressingLetter, myWord) {
-    console.log(pressingLetter);
-    console.log(myWord);
-
+    // Приводит загаданное слово к заглавным буквам
     let toUpperCaseWord = myWord.toUpperCase();
     let arrOfMyWord = toUpperCaseWord.split('');
-
-    console.log(arrOfMyWord);
 
     // Проверка есть ли в загаданном слове введеная буква
     if (arrOfMyWord.includes(pressingLetter)) {
@@ -129,6 +126,9 @@ function compareArrays(pressingLetter, myWord) {
             ArrOfСorrectLetter.push(pressingLetter);
 
             winMyGame(ArrOfСorrectLetter, arrOfMyWord);
+
+            console.log(ArrOfСorrectLetter);
+
         }
     } else {
         if (!ArrOfErrorLetter.includes(pressingLetter)) {
@@ -144,6 +144,9 @@ function compareArrays(pressingLetter, myWord) {
 
             // Функция подсчета проигрышей
             loseMyGame(mistakes);
+
+            console.log(ArrOfErrorLetter);
+
         }
     }
 }
@@ -235,20 +238,20 @@ function createTemplate(word) {
         liNode.classList.add('content__output-item');
 
         // Буква
-        // let spanNode = document.createElement("span")
-        // spanNode.textContent = word[i];
-        // spanNode.classList.add('content__output-item--span');
-        // liNode.append(spanNode);
+        let spanNode = document.createElement("span")
+        spanNode.classList.add('content__output-item--span');
+        liNode.append(spanNode);
 
         contentOutputWrapper.append(liNode);
     }
 }
 
 
-
 ////// –––––––––––––––––––––––––––––––––– //////
 // Функция начала игры
 function startGame() {
+    pageBody.classList.remove('try-again');
+
     // Поучаю мой массив
     let myRandomArr = getRandomArr(ArrOfMystery);
 
@@ -274,4 +277,55 @@ function startGame() {
     getEventListener(myWord);
 }
 
-startGame();
+
+// Кнопка СТАРТА
+let blockMask = document.querySelector('.content__mask');
+let buttonMask = document.querySelector('.content__mask-button');
+
+buttonMask.addEventListener('click', () => {
+    blockMask.style.display = 'none';
+
+    // Начинает игру
+    startGame();
+});
+
+// Повтроная игра
+let tryAgainButtonWin = document.querySelector('.content__mask-win-button');
+let tryAgainButtonLose = document.querySelector('.content__mask-lose-button');
+let maskNodeWin = document.querySelector('.content__mask-win');
+let maskNodeLose = document.querySelector('.content__mask-lose');
+
+
+// Очистить массивы с буквами
+function cleanAllData() {
+    mistakes = 0;
+    ArrOfErrorLetter = [];
+    ArrOfСorrectLetter = [];
+
+    // Нода вывода буквы
+    let outputErrorLetter = document.querySelector('.content__letter');
+    outputErrorLetter.textContent = '';
+}
+
+
+// Повтор после выигрыша
+tryAgainButtonWin.addEventListener('click', () => {
+    maskNodeWin.classList.add('content__mask-win--close');
+    
+    // Очистить данные
+    cleanAllData();
+
+    // Начинает игру
+    startGame();
+});
+
+// Повтор после проигрыша
+tryAgainButtonLose.addEventListener('click', () => {
+    maskNodeLose.classList.add('content__mask-lose--close');
+    
+    // Очистить данные
+    cleanAllData();
+
+    // Начинает игру
+    startGame();
+});
