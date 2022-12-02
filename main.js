@@ -122,20 +122,25 @@ function getEventListener(myWord) {
 }
 
 
-// Загадать слово
-const word = [
+let questionText = document.querySelector()
+
+
+
+// Массив слов для загадки
+const ArrOfMystery = [
     ['Большой, сильный и бурый. Кто это?', 'Медведь'],
     ['Большой, сильный и быстрый. Очень клыкастый?', 'Тигр'],
     ['Как пела Полина Гагарина. Без чего не выжить человечеству?', 'Красота'],
 ];
 
-// Функция получения слова
-let getRandomWord = function (arr) {
+// Функция получения рандомной цифры
+function getRandomArr(arr) {
     let arrLength = arr.length;
     let randomNumber = Math.floor(Math.random(0, 1) * arrLength);
 
-    return arr[randomNumber][2];
+    return arr[randomNumber];
 }
+
 
 // Скрывает человека
 function hideMan() {
@@ -150,9 +155,23 @@ function hideMan() {
 ////// –––––––––––––––––––––––––––––––––– //////
 // Функция начала игры
 function startGame() {
-    let myWord = getRandomWord(word);
+    // Поучаю мой массив
+    let myRandomArr = getRandomArr(ArrOfMystery);
+
+    // Поучаю слово для загадки из своего массива
+    let myWord = myRandomArr[1];
+
+    // Поучаю вопрос для загадки из своего массива
+    let myQuestion =  myRandomArr[0];
+    console.log(myQuestion);
     console.log(myWord);
+
+    // Прячет человека
     hideMan();
+
+
+
+    // Слушательна ввод букв
     getEventListener(myWord);
 }
 
