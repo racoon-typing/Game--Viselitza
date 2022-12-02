@@ -121,8 +121,12 @@ function getEventListener(myWord) {
     document.addEventListener('keydown', keydownEvent);
 }
 
+function giveOutputQuestion(myQuestion) {
+    let questionText = document.querySelector('.content__question-text');
 
-let questionText = document.querySelector()
+    questionText.textContent = myQuestion;
+}
+
 
 
 
@@ -169,7 +173,8 @@ function startGame() {
     // Прячет человека
     hideMan();
 
-
+    // Вывод вопрос
+    giveOutputQuestion(myQuestion);
 
     // Слушательна ввод букв
     getEventListener(myWord);
