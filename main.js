@@ -3,45 +3,61 @@
 let pageBody = document.querySelector('.page__body');
 
 
+
+// Кол-во проигрышей
+let winGame = 0;
+
+// Функция подсчета побед
 function winMyGame(ArrOfСorrectLetter, arrOfMyWord) {
+    // Выводит результат сыгранных игр
+    let winItemNode = document.querySelector('.content__result--win');
 
     console.log(ArrOfСorrectLetter);
     console.log(arrOfMyWord);
 
+    // Кол-во совпавших букв
+    let equalLetter = 0;
+    // Индекс совпавшей буквы
+    let numOfEqualLetter;
 
-    // let equalObjects = [];
+    // Находит совпадающие буквы
+    let index = -1;
+    arrOfMyWord.forEach(function (elementOfMyWord) {
+        index++;
+        ArrOfСorrectLetter.forEach(function (elementOfСorrectLetter) {
+            if (JSON.stringify(elementOfMyWord) === JSON.stringify(elementOfСorrectLetter)) {
+                // Индекс совпавшей буквы
+                numOfEqualLetter = index;
 
-    // let numOfEqualLetter;
+                equalLetter++;
+                console.log(equalLetter);
+                // console.log(numOfEqualLetter);
 
-    // // Находит совпадающие буквы
-    // let index = -1;
-    // someArray.forEach(function (elementOfSomeArray) {
-    //     index++;
-    //     otherArray.forEach(function (elementOfOrherArray) {
-    //         if (JSON.stringify(elementOfSomeArray) === JSON.stringify(elementOfOrherArray)) {
-    //             // Индекс совпавшей буквы
-    //             numOfEqualLetter = index;
-    //             console.log(numOfEqualLetter);
-    //         }
-    //     });
-    // });
 
-    //             // Передает индекс в фунцию показа буквы
-    //             openWord(numOfEqual);
 
-    //             // Вставляет в массив совпавшие буквы
-    //             equalObjects.push(elementOfOrherArray);
-    //         }
-    //     });
-    // });
+
+            }
+        });
+    });
+
+    if (equalLetter == arrOfMyWord.length) {
+        // Добавляет класс на Body
+        pageBody.classList.add('try-again');
+        console.log('Добавился класс на Page');
+
+        // Прибавляет проигрыш
+        winGame++;
+
+        // Выводит кол-во выигрышей
+        winItemNode.textContent = winGame;
+    }
 }
-
 
 
 // Кол-во проигрышей
 let loseGame = 0;
 
-// Проигрыш
+// Функция подсчета проигрышей
 function loseMyGame(mistakes) {
     // Выводит результат сыгранных игр
     let loseItemNode = document.querySelector('.content__result--lose');
@@ -161,7 +177,7 @@ function getEventListener(myWord) {
 
 function giveOutputQuestion(myQuestion) {
     let questionText = document.querySelector('.content__question-text');
-    
+
     // Выводит текст на страницу
     questionText.textContent = myQuestion;
 }
@@ -203,7 +219,7 @@ function startGame() {
     let myWord = myRandomArr[1];
 
     // Поучаю вопрос для загадки из своего массива
-    let myQuestion =  myRandomArr[0];
+    let myQuestion = myRandomArr[0];
     console.log(myQuestion);
     console.log(myWord);
 
