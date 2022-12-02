@@ -3,7 +3,38 @@
 let pageBody = document.querySelector('.page__body');
 
 
+function winMyGame(ArrOfСorrectLetter, arrOfMyWord) {
 
+    console.log(ArrOfСorrectLetter);
+    console.log(arrOfMyWord);
+
+
+    // let equalObjects = [];
+
+    // let numOfEqualLetter;
+
+    // // Находит совпадающие буквы
+    // let index = -1;
+    // someArray.forEach(function (elementOfSomeArray) {
+    //     index++;
+    //     otherArray.forEach(function (elementOfOrherArray) {
+    //         if (JSON.stringify(elementOfSomeArray) === JSON.stringify(elementOfOrherArray)) {
+    //             // Индекс совпавшей буквы
+    //             numOfEqualLetter = index;
+    //             console.log(numOfEqualLetter);
+    //         }
+    //     });
+    // });
+
+    //             // Передает индекс в фунцию показа буквы
+    //             openWord(numOfEqual);
+
+    //             // Вставляет в массив совпавшие буквы
+    //             equalObjects.push(elementOfOrherArray);
+    //         }
+    //     });
+    // });
+}
 
 
 
@@ -42,16 +73,17 @@ function loseMyGame(mistakes) {
 
 
 // Вывод неправильных букв
-function getErrorPressingLetter(ErrorLetter) {
+function getErrorPressingLetter(ArrOfErrorLetter) {
     // Нода вывода буквы
     let outputErrorLetter = document.querySelector('.content__letter');
-    let valueIputLetter = ErrorLetter.join(', ')
+    let valueIputLetter = ArrOfErrorLetter.join(', ')
     outputErrorLetter.textContent = valueIputLetter;
 }
 
 // Кол-во ошибок
 let mistakes = 0;
-let ErrorLetter = [];
+let ArrOfErrorLetter = [];
+let ArrOfСorrectLetter = [];
 
 // Сравнивает введенную букву и загаданное слово
 function compareArrays(pressingLetter, myWord) {
@@ -65,20 +97,26 @@ function compareArrays(pressingLetter, myWord) {
 
     // Проверка есть ли в загаданном слове введеная буква
     if (arrOfMyWord.includes(pressingLetter)) {
-        console.log(`Слово ${myWord} содержит ${pressingLetter}`);
+
+        if (!ArrOfСorrectLetter.includes(pressingLetter)) {
+            console.log(`Слово ${myWord} содержит ${pressingLetter}`);
+
+            // Добавляет неповторяющуюся букву в массив с правильные буквы
+            ArrOfСorrectLetter.push(pressingLetter);
+
+            winMyGame(ArrOfСorrectLetter, arrOfMyWord);
+        }
     } else {
-        if (!ErrorLetter.includes(pressingLetter)) {
+        if (!ArrOfErrorLetter.includes(pressingLetter)) {
             // Прибавляет ошибку
             mistakes++;
-            console.log(mistakes);
             console.log(`Слово ${myWord} не содержит ${pressingLetter}`);
 
             // Добавляет неповторяющуюся букву в массив с ошибками
-            ErrorLetter.push(pressingLetter);
-            console.log(ErrorLetter);
+            ArrOfErrorLetter.push(pressingLetter);
 
             // Функция вывод неправильных букв
-            getErrorPressingLetter(ErrorLetter, mistakes);
+            getErrorPressingLetter(ArrOfErrorLetter, mistakes);
 
             // Функция подсчета проигрышей
             loseMyGame(mistakes);
@@ -123,11 +161,10 @@ function getEventListener(myWord) {
 
 function giveOutputQuestion(myQuestion) {
     let questionText = document.querySelector('.content__question-text');
-
+    
+    // Выводит текст на страницу
     questionText.textContent = myQuestion;
 }
-
-
 
 
 // Массив слов для загадки
