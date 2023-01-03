@@ -19,7 +19,7 @@
 /*  Результат: победа / проигрыш */
 .content__result {
     z-index: 1;
-}   
+}
 
 .content__result-list {
     display: flex;
@@ -115,15 +115,10 @@
     border-top: 3px solid black;
 }
 
-.content__base-gallows::before {
-    position: absolute;
-    content: '';
-    width: 70px;
-    height: 3px;
-    background-color: black;
-    right: -20%;
-    top: 31px;
-    rotate: 90deg;
+.content__base-bind {
+    width: calc(100% - 3px);
+    height: 70px;
+    border-right: 3px solid black;
 }
 
 .content__base-el {
@@ -131,12 +126,18 @@
 }
 
 /* Человек */
+.content__base-wrapper-human {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
 .content__base-human {
     position: absolute;
     width: 66px;
     min-height: 200px;
-    top: 65px;
-    left: 71%;
+    top: 0;
+    right: -31px;
     /* z-index: 1; */
 }
 
@@ -291,9 +292,9 @@
     from {
         background-color: rgba(255, 255, 255, 0.8);
     }
-  
+
     to {
-      background-color: rgb(255, 102, 102, 1);
+        background-color: rgb(255, 102, 102, 1);
     }
 }
 
@@ -638,17 +639,15 @@
         min-height: 500px;
     }
 
-    .content__base-gallows::before {
-        width: 120px;
-        top: 56px;
-        right: -17%;
+    .content__base-bind {
+        height: 120px;
     }
 
     .content__base-human {
         width: 86px;
         min-height: 250px;
-        top: 115px;
-        left: 84%;
+        top: 0;
+        right: -41px;
     }
 
     .content__base-head {
@@ -725,3 +724,30 @@
 }
 
 
+@media (min-width: 1200px) {
+    .content-grid {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
+    .content__result {
+        grid-column: 2 / 3;
+    }
+
+    .content__question {
+        grid-column: 2 / 3;
+    }
+
+    .content__letter {
+        grid-column: 2 / 3;   
+    }
+
+    .content__base {
+        grid-row: 1 / 5;
+        grid-column: 1 / 2;   
+    }
+
+    .content__output-content {
+        grid-column: 2 / 3;   
+    }
+}

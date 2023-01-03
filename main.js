@@ -278,9 +278,6 @@ function startGame() {
     // Поучаю вопрос для загадки из своего массива
     let myQuestion = myRandomArr[0];
 
-    console.log(myQuestion);
-    console.log(myWord);
-
     // Прячет человека
     hideMan();
 

@@ -11,57 +11,64 @@
 
 <body class="page__body">
     <section class="content">
-        <!-- Кол-во побед / проигрышей -->
-        <div class="content__result">
-            <ul class="content__result-list">
-                <!-- 1 -->
-                <li class="content__result-item">
-                    <p class="content__result-item-text">
-                        Выиграл :
-                    </p>
+        <!-- Грид контейнер 1200 px -->
+        <div class="content-grid">
 
-                    <p class="content__result--strick content__result--win">0</p>
-                </li>
+            <!-- Кол-во побед / проигрышей -->
+            <div class="content__result">
+                <ul class="content__result-list">
+                    <!-- 1 -->
+                    <li class="content__result-item">
+                        <p class="content__result-item-text">
+                            Выиграл :
+                        </p>
 
-                <!-- 2 -->
-                <li class="content__result-item">
-                    <p class="content__result-item-text">
-                        Проиграл :
-                    </p>
+                        <p class="content__result--strick content__result--win">0</p>
+                    </li>
 
-                    <p class="content__result--strick content__result--lose">0</p>
-                </li>
-            </ul>
-        </div>
+                    <!-- 2 -->
+                    <li class="content__result-item">
+                        <p class="content__result-item-text">
+                            Проиграл :
+                        </p>
 
-         <!-- Вопрос к загаданному слову -->
-        <div class="content__question">
-            <h3 class="content__question-title">Вопрос:</h3>
-            <p class="content__question-text"></p>
-        </div>
+                        <p class="content__result--strick content__result--lose">0</p>
+                    </li>
+                </ul>
+            </div>
 
-        <!-- Контейнер для неправильные букв -->
-        <div class="content__letter">
-        </div>
+            <!-- Вопрос к загаданному слову -->
+            <div class="content__question">
+                <h3 class="content__question-title">Вопрос:</h3>
+                <p class="content__question-text"></p>
+            </div>
 
-        <!-- Виселица -->
-        <div class="content__base">
-            <div class="content__base-gallows">
-                <div class="content__base-human">
-                    <div class="content__base-el content__base-head"></div>
-                    <div class="content__base-el content__base-body"></div>
-                    <div class="content__base-el content__base-hand content__base-hand--left"></div>
-                    <div class="content__base-el content__base-hand content__base-hand--right"></div>
-                    <div class="content__base-el content__base-foot content__base-foot--left"></div>
-                    <div class="content__base-el content__base-foot content__base-foot--right"></div>
+            <!-- Контейнер для неправильные букв -->
+            <div class="content__letter">
+            </div>
+
+            <!-- Виселица -->
+            <div class="content__base">
+                <div class="content__base-gallows">
+                    <div class="content__base-bind"></div>
+
+                    <div class="content__base-wrapper-human">
+                        <div class="content__base-human">
+                            <div class="content__base-el content__base-head"></div>
+                            <div class="content__base-el content__base-body"></div>
+                            <div class="content__base-el content__base-hand content__base-hand--left"></div>
+                            <div class="content__base-el content__base-hand content__base-hand--right"></div>
+                            <div class="content__base-el content__base-foot content__base-foot--left"></div>
+                            <div class="content__base-el content__base-foot content__base-foot--right"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Загаданное слово -->
+            <ul class="content__output-content"></ul>
+            
         </div>
-
-        <!-- Загаданное слово -->
-        <ul class="content__output-content">
-
-        </ul>
     </section>
 
     <!-- Старт -->
@@ -76,8 +83,8 @@
         <button class="content__mask-lose-button">Попробовать еще раз</button>
     </div>
 
-     <!-- Выиграл -->
-     <div class="content__mask-win content__mask-win--close">
+    <!-- Выиграл -->
+    <div class="content__mask-win content__mask-win--close">
         <!-- Конфети -->
         <div class="confetti">
             <div class="confetti-piece"></div>
@@ -93,11 +100,11 @@
             <div class="confetti-piece"></div>
             <div class="confetti-piece"></div>
             <div class="confetti-piece"></div>
-            
+
             <div class="icon">Поздравляю, ты выиграл!</div>
             <button class="content__mask-win-button">Хочешь повторить?</button>
         </div>
-    
+
 
     </div>
 
