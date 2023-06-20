@@ -18,9 +18,6 @@ function winMyGame(ArrOfСorrectLetter, arrOfMyWord) {
     // Выводит результат сыгранных игр
     let winItemNode = document.querySelector('.content__result--win');
 
-    console.log(ArrOfСorrectLetter);
-    console.log(arrOfMyWord);
-
     // Кол-во совпавших букв
     let equalLetter = 0;
     // Индекс совпавшей буквы
@@ -52,7 +49,6 @@ function winMyGame(ArrOfСorrectLetter, arrOfMyWord) {
 
         // Добавляет класс на Body
         pageBody.classList.add('try-again');
-        console.log('Добавился класс на Page');
 
         // Прибавляет проигрыш
         winGame++;
@@ -86,7 +82,6 @@ function loseMyGame(mistakes) {
 
         // Добавляет класс на Body
         pageBody.classList.add('try-again');
-        console.log('Добавился класс на Page');
 
         // Прибавляет проигрыш
         loseGame++;
@@ -120,21 +115,15 @@ function compareArrays(pressingLetter, myWord) {
     if (arrOfMyWord.includes(pressingLetter)) {
 
         if (!ArrOfСorrectLetter.includes(pressingLetter)) {
-            console.log(`Слово ${myWord} содержит ${pressingLetter}`);
-
             // Добавляет неповторяющуюся букву в массив с правильные буквы
             ArrOfСorrectLetter.push(pressingLetter);
 
             winMyGame(ArrOfСorrectLetter, arrOfMyWord);
-
-            console.log(ArrOfСorrectLetter);
-
         }
     } else {
         if (!ArrOfErrorLetter.includes(pressingLetter)) {
             // Прибавляет ошибку
             mistakes++;
-            console.log(`Слово ${myWord} не содержит ${pressingLetter}`);
 
             // Добавляет неповторяющуюся букву в массив с ошибками
             ArrOfErrorLetter.push(pressingLetter);
@@ -144,9 +133,6 @@ function compareArrays(pressingLetter, myWord) {
 
             // Функция подсчета проигрышей
             loseMyGame(mistakes);
-
-            console.log(ArrOfErrorLetter);
-
         }
     }
 }
